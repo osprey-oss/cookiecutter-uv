@@ -1,6 +1,6 @@
 {
   "author": "Florian Maas",
-  "email": "fpgmaas@gmail.com",
+  "email": "foo@email.com",
   "author_github_handle": "fpgmaas",
   "project_name": "example-project",
   "project_slug": "{{cookiecutter.project_name|lower|replace('-', '_')}}",
