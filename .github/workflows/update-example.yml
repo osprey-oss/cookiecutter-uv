@@ -35,8 +35,8 @@ jobs:
         run: |
           uv run cookiecutter --no-input . --overwrite-if-exists \
             author="Example User" \
-            email="example@example.com" \
-            author_github_handle="example-user" \
+            email="example@osprey-oss.org" \
+            author_github_handle="osprey-oss" \
             project_name="cookiecutter-uv-example"
 
       - name: Push to cookiecutter-uv-example
@@ -53,6 +53,21 @@ jobs:
           git commit -m "chore: sync from cookiecutter-uv@${{ github.sha }}"
           git remote add origin "https://x-access-token:${TOKEN}@github.com/osprey-oss/cookiecutter-uv-example.git"
           git push -f origin "$BRANCH"
+
+      - name: Trigger CI in cookiecutter-uv-example
+        uses: actions/github-script@v7
+        env:
+          TOKEN: ${{ secrets.EXAMPLE_REPO_PUSH_TOKEN }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        with:
+          script: |
+            await github.request('POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches', {
+              owner: 'osprey-oss',
+              repo: 'cookiecutter-uv-example',
+              workflow_id: 'main.yml',
+              ref: process.env.BRANCH,
+              headers: { authorization: `token ${process.env.TOKEN}` },
+            });
 
       - name: Post or update PR comment
         if: github.event_name == 'pull_request'
