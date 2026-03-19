@@ -15,7 +15,7 @@ bake-and-test-deploy: ## For quick publishing to cookiecutter-uv-example to test
 	@rm -rf cookiecutter-uv-example || true
 	@uv run cookiecutter --no-input . --overwrite-if-exists \
 		author="Florian Maas" \
-		email="fpgmaas@gmail.com" \
+		email="foo@email.com" \
 		github_author_handle=fpgmaas \
 		project_name=cookiecutter-uv-example \
 		project_slug=cookiecutter_uv_example
@@ -28,7 +28,7 @@ bake-and-test-deploy: ## For quick publishing to cookiecutter-uv-example to test
 		uv run pre-commit run -a || true && \
 		git add . && \
 		git commit -m "init commit" && \
-		git remote add origin git@github.com:fpgmaas/cookiecutter-uv-example.git && \
+		git remote add origin git@github.com:osprey-oss/cookiecutter-uv-example.git && \
 		git push -f origin main
 
 
