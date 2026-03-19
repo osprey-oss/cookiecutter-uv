@@ -58,10 +58,12 @@ jobs:
           TOKEN: ${{ secrets.EXAMPLE_REPO_PUSH_TOKEN }}
         run: |
           cd cookiecutter-uv-example
+          uv sync
           git init
           git checkout -b "$BRANCH"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          uv run pre-commit run -a || true
           git add .
           git commit -m "chore: sync from cookiecutter-uv@${{ github.sha }}"
           git remote add origin "https://x-access-token:${TOKEN}@github.com/osprey-oss/cookiecutter-uv-example.git"
