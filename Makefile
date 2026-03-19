@@ -10,27 +10,6 @@ bake-src: ## bake without inputs and overwrite if exists.
 bake-with-inputs: ## bake with inputs and overwrite if exists.
 	@uv run cookiecutter . --overwrite-if-exists
 
-.PHONY: bake-and-test-deploy
-bake-and-test-deploy: ## For quick publishing to cookiecutter-uv-example to test GH Actions
-	@rm -rf cookiecutter-uv-example || true
-	@uv run cookiecutter --no-input . --overwrite-if-exists \
-		author="Florian Maas" \
-		email="foo@email.com" \
-		github_author_handle=fpgmaas \
-		project_name=cookiecutter-uv-example \
-		project_slug=cookiecutter_uv_example
-	@cd cookiecutter-uv-example; uv sync && \
-		git init -b main && \
-		git add . && \
-		uv run pre-commit install && \
-		uv run pre-commit run -a || true && \
-		git add . && \
-		uv run pre-commit run -a || true && \
-		git add . && \
-		git commit -m "init commit" && \
-		git remote add origin git@github.com:osprey-oss/cookiecutter-uv-example.git && \
-		git push -f origin main
-
 
 .PHONY: install
 install: ## Install the virtual environment
