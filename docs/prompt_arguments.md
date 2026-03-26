@@ -65,12 +65,12 @@ see
 `"y"` or `"n"`. Adds [deptry](https://fpgmaas.github.io/deptry/)
 to the development dependencies of the project, and adds it to the `make check` command. `deptry` is a command line tool to check for issues with dependencies in a Python project, such as obsolete or missing dependencies.
 
-**mkdocs**
+**docs_tool**
 
-`"y"` or `"n"`. Adds [MkDocs](https://www.mkdocs.org/)
-documentation to your project. This includes automatically parsing
-your docstrings and adding them to the documentation. Documentation
-will be deployed to the `gh-pages` branch.
+`"mkdocs"`, `"zensical"` or `"none"`. Adds [MkDocs](https://www.mkdocs.org/) or
+[Zensical](https://zensical.org) documentation to your project. This includes automatically parsing
+your docstrings and adding them to the documentation. Documentation is automatically deployed to
+GitHub Pages via the release-main workflow upon every new release.
 
 **codecov**
 
