@@ -7,6 +7,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import pytest
+import tomllib
 import yaml
 
 
@@ -43,6 +44,18 @@ class BakedProject:
             with path.open() as f:
                 yaml.safe_load(f)
         except (yaml.YAMLError, OSError):
+            return False
+        return True
+
+    def is_valid_toml(self, rel_path: str) -> bool:
+        """Return True if the file is valid TOML, raise TOMLDecodeError with line/column info otherwise."""
+        path = self.path / rel_path
+        if not path.is_file():
+            return False
+        try:
+            with path.open("rb") as f:
+                tomllib.load(f)
+        except (tomllib.TOMLDecodeError, OSError):
             return False
         return True
 

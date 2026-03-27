@@ -38,6 +38,7 @@ def test_zensical(bake):
     assert project.has_dir("docs")
     assert not project.has_file("mkdocs.yml")
     assert project.has_file("zensical.toml")
+    assert project.is_valid_toml("zensical.toml")
 
 
 def test_no_docs_tool(bake):
