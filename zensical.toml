@@ -1,11 +1,11 @@
 [project]
 site_name = "cookiecutter-uv"
-repo_url = "https://github.com/fpgmaas/cookiecutter-uv"
+repo_url = "https://github.com/osprey-oss/cookiecutter-uv"
 site_url = "https://fpgmaas.github.io/cookiecutter-uv"
 site_description = "A cookiecutter template for Python projects that use uv for its dependency management"
 site_author = "Florian Maas"
 edit_uri = "edit/main/docs/"
-repo_name = "fpgmaas/cookiecutter-uv"
+repo_name = "osprey-oss/cookiecutter-uv"
 copyright = "Maintained by <a href='https://fpgmaas.com'>Florian</a>."
 
 nav = [
