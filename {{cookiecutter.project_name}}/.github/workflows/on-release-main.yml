@@ -57,6 +57,10 @@ jobs:
     {%- if cookiecutter.publish_to_pypi == "y" %}
     needs: publish
     {%- endif %}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     steps:
       - name: Check out
