@@ -73,7 +73,7 @@ jobs:
         uses: ./.github/actions/setup-python-env
 
       - name: Build documentation
-        run: uv run {{ cookiecutter.docs_tool}} build --clean
+        run: uv run {{ cookiecutter.docs_tool }} build --clean
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
