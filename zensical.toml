@@ -91,6 +91,8 @@ link = "https://github.com/fpgmaas/cookiecutter-uv"
 icon = "fontawesome/brands/python"
 link = "https://pypi.org/project/cookiecutter-uv/"
 
+[project.markdown_extensions.pymdownx.superfences]
+
 [project.markdown_extensions.pymdownx.arithmatex]
 generic = true
 
