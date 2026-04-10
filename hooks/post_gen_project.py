@@ -27,12 +27,17 @@ if __name__ == "__main__":
     if "{{cookiecutter.include_github_actions}}" != "y":
         remove_dir(".github")
     else:
-        if "{{cookiecutter.mkdocs}}" != "y" and "{{cookiecutter.publish_to_pypi}}" == "n":
+        if "{{cookiecutter.docs_tool}}" not in ["mkdocs", "zensical"] and "{{cookiecutter.publish_to_pypi}}" == "n":
             remove_file(".github/workflows/on-release-main.yml")
 
-    if "{{cookiecutter.mkdocs}}" != "y":
+    if "{{cookiecutter.docs_tool}}" == "mkdocs":
+        remove_file("zensical.toml")
+    elif "{{cookiecutter.docs_tool}}" == "zensical":
+        remove_file("mkdocs.yml")
+    else:  # none
         remove_dir("docs")
         remove_file("mkdocs.yml")
+        remove_file("zensical.toml")
 
     if "{{cookiecutter.dockerfile}}" != "y":
         remove_file("Dockerfile")

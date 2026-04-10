@@ -9,6 +9,11 @@ from pathlib import Path
 import pytest
 import yaml
 
+try:
+    import tomllib  # type: ignore[import]
+except ImportError:
+    import tomli as tomllib  # type: ignore[import]
+
 
 @dataclass
 class BakedProject:
@@ -43,6 +48,18 @@ class BakedProject:
             with path.open() as f:
                 yaml.safe_load(f)
         except (yaml.YAMLError, OSError):
+            return False
+        return True
+
+    def is_valid_toml(self, rel_path: str) -> bool:
+        """Return True if the file is valid TOML, raise TOMLDecodeError with line/column info otherwise."""
+        path = self.path / rel_path
+        if not path.is_file():
+            return False
+        try:
+            with path.open("rb") as f:
+                tomllib.load(f)
+        except (tomllib.TOMLDecodeError, OSError):
             return False
         return True
 
@@ -88,7 +105,7 @@ def bake(cookies):
 
     Usage:
         def test_something(bake):
-            project = bake(mkdocs="n", codecov="y")
+            project = bake(docs_tool="none", codecov="y")
             assert project.has_file("pyproject.toml")
     """
 

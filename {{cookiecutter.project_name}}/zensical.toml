@@ -1,0 +1,86 @@
+[project]
+site_name = "{{cookiecutter.project_name}}"
+repo_url = "https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}"
+site_url = "https://{{cookiecutter.author_github_handle}}.github.io/{{cookiecutter.project_name}}"
+site_description = "{{cookiecutter.project_description}}"
+site_author = "{{cookiecutter.author}}"
+edit_uri = "edit/main/docs/"
+repo_name = "{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}"
+copyright = 'Maintained by <a href="https://{{cookiecutter.author_github_handle}}.com">{{cookiecutter.author_github_handle}}</a>.'
+
+nav = [
+    { "Home" = "index.md" },
+    { "Modules" = "modules.md" },
+]
+
+[project.plugins.mkdocstrings.handlers.python]
+paths = [
+    {%- if cookiecutter.layout == "src" -%}
+    "src/{{cookiecutter.project_slug}}"
+    {%- else -%}
+    "{{cookiecutter.project_slug}}"
+    {%- endif -%}
+]
+
+[project.theme]
+language = "en"
+features = [
+    "announce.dismiss",
+    "content.code.annotate",
+    "content.action.edit",
+    "content.action.view",
+    "content.code.copy",
+    "content.code.select",
+    "content.footnote.tooltips",
+    "content.tabs.link",
+    "content.tooltips",
+    "navigation.footer",
+    "navigation.indexes",
+    "navigation.instant",
+    "navigation.instant.prefetch",
+    "navigation.path",
+    "navigation.prune",
+    "navigation.top",
+    "navigation.tracking",
+    "search.highlight",
+]
+
+
+[project.theme.icon]
+previous = "fontawesome/solid/angle-left"
+next = "fontawesome/solid/angle-right"
+repo = "fontawesome/brands/github"
+
+#[project.theme.font]
+#text = "Inter"
+#code = "Jetbrains Mono"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: light)"
+scheme = "default"
+primary = "white"
+accent = "deep orange"
+toggle.icon =  "material/brightness-7"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+media = "(prefers-color-scheme: dark)"
+scheme = "slate"
+primary = "black"
+accent = "deep orange"
+toggle.icon =  "material/brightness-4"
+toggle.name = "Switch to system preference"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/github"
+link = "https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.project_name}}"
+
+[[project.extra.social]]
+icon = "fontawesome/brands/python"
+link = "https://pypi.org/project/{{cookiecutter.project_name}}"
+
+[project.markdown_extensions.pymdownx.arithmatex]
+generic = true
+
+[project.markdown_extensions.toc]
+permalink = true

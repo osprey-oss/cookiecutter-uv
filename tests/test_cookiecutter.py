@@ -21,19 +21,34 @@ def test_dont_publish(bake):
 
 
 def test_mkdocs(bake):
-    project = bake(mkdocs="y")
+    project = bake(docs_tool="mkdocs")
     assert project.is_valid_yaml(".github/workflows/on-release-main.yml")
-    assert project.file_contains(".github/workflows/on-release-main.yml", "mkdocs gh-deploy")
+    assert project.file_contains(".github/workflows/on-release-main.yml", "mkdocs")
     assert project.file_contains("Makefile", "docs:")
     assert project.has_dir("docs")
+    assert project.has_file("mkdocs.yml")
+    assert not project.has_file("zensical.toml")
 
 
-def test_not_mkdocs(bake):
-    project = bake(mkdocs="n")
+def test_zensical(bake):
+    project = bake(docs_tool="zensical")
+    assert project.is_valid_yaml(".github/workflows/on-release-main.yml")
+    assert project.file_contains(".github/workflows/on-release-main.yml", "zensical")
+    assert project.file_contains("Makefile", "docs:")
+    assert project.has_dir("docs")
+    assert not project.has_file("mkdocs.yml")
+    assert project.has_file("zensical.toml")
+    assert project.is_valid_toml("zensical.toml")
+
+
+def test_no_docs_tool(bake):
+    project = bake(docs_tool="none")
     assert project.is_valid_yaml(".github/workflows/on-release-main.yml")
     assert not project.file_contains(".github/workflows/on-release-main.yml", "mkdocs gh-deploy")
     assert not project.file_contains("Makefile", "docs:")
     assert not project.has_dir("docs")
+    assert not project.has_file("mkdocs.yml")
+    assert not project.has_file("zensical.toml")
 
 
 def test_tox(bake):

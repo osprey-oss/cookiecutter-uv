@@ -47,7 +47,7 @@ publish: ## Publish a release to PyPI.
 build-and-publish: build publish ## Build and publish.
 {%- endif%}
 
-{%- if cookiecutter.mkdocs == "y" %}
+{%- if cookiecutter.docs_tool == "mkdocs" %}
 
 .PHONY: docs-test
 docs-test: ## Test if documentation can be built without warnings or errors
@@ -56,6 +56,17 @@ docs-test: ## Test if documentation can be built without warnings or errors
 .PHONY: docs
 docs: ## Build and serve the documentation
 	@uv run mkdocs serve
+
+{%- endif %}
+{%- if cookiecutter.docs_tool == "zensical" %}
+
+.PHONY: docs-test
+docs-test: ## Test if documentation can be built without warnings or errors
+	@uv run zensical build -s
+
+.PHONY: docs
+docs: ## Build and serve the documentation
+	@uv run zensical serve
 
 {%- endif %}
 
