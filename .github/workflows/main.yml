@@ -68,4 +68,4 @@ jobs:
         uses: ./.github/actions/setup-python-env
 
       - name: Check if documentation can be built
-        run: uv run mkdocs build -s
+        run: uv run zensical build -s

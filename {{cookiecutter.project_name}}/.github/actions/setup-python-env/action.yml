@@ -9,7 +9,7 @@ inputs:
   uv-version:
     description: "uv version to use"
     required: true
-    default: "0.10.10"
+    default: "0.10.12"
 
 runs:
   using: "composite"

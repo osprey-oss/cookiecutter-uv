@@ -6,7 +6,7 @@ MINIMAL = {
     "include_github_actions": "n",
     "publish_to_pypi": "n",
     "deptry": "n",
-    "mkdocs": "n",
+    "docs_tool": "none",
     "codecov": "n",
     "dockerfile": "n",
     "devcontainer": "n",
@@ -31,7 +31,7 @@ DEFAULTS = {
     "include_github_actions": "y",
     "publish_to_pypi": "y",
     "deptry": "y",
-    "mkdocs": "y",
+    "docs_tool": "mkdocs",
     "codecov": "y",
     "dockerfile": "y",
     "devcontainer": "y",
@@ -73,12 +73,18 @@ class TestStructure:
         else:
             assert not project.has_file("Dockerfile")
 
-        if effective["mkdocs"] == "y":
+        if effective["docs_tool"] == "mkdocs":
             assert project.has_dir("docs")
             assert project.has_file("mkdocs.yml")
+            assert not project.has_file("zensical.toml")
+        elif effective["docs_tool"] == "zensical":
+            assert project.has_dir("docs")
+            assert not project.has_file("mkdocs.yml")
+            assert project.has_file("zensical.toml")
         else:
             assert not project.has_dir("docs")
             assert not project.has_file("mkdocs.yml")
+            assert not project.has_file("zensical.toml")
 
         if effective["codecov"] == "y":
             assert project.has_file("codecov.yaml")
@@ -110,7 +116,7 @@ class TestStructure:
         project = bake(**options)
         if effective["include_github_actions"] != "y":
             return  # no .github at all
-        has_release = effective["publish_to_pypi"] == "y" or effective["mkdocs"] == "y"
+        has_release = effective["publish_to_pypi"] == "y" or (effective["docs_tool"] in ["mkdocs", "zensical"])
         workflow = ".github/workflows/on-release-main.yml"
         if has_release:
             assert project.has_file(workflow), "Expected release workflow to exist"
@@ -144,7 +150,7 @@ class TestStructure:
         else:
             assert "build-and-publish" not in content
 
-        if effective["mkdocs"] == "y":
+        if effective["docs_tool"] in ["mkdocs", "zensical"]:
             assert "docs:" in content
         else:
             assert "docs:" not in content

@@ -52,11 +52,18 @@ jobs:
         env:
           UV_PUBLISH_TOKEN: {% raw %}${{ secrets.PYPI_TOKEN }}{% endraw %}
 {% endif %}
-{%- if cookiecutter.mkdocs == "y" %}
+{%- if cookiecutter.docs_tool in ["mkdocs", "zensical"] %}
   deploy-docs:
     {%- if cookiecutter.publish_to_pypi == "y" %}
     needs: publish
     {%- endif %}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: {% raw %}${{ steps.deployment.outputs.page_url }}{% endraw %}
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -65,6 +72,15 @@ jobs:
       - name: Set up the environment
         uses: ./.github/actions/setup-python-env
 
-      - name: Deploy documentation
-        run: uv run mkdocs gh-deploy --force
+      - name: Build documentation
+        run: uv run {{ cookiecutter.docs_tool}} build --clean
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 {% endif %}

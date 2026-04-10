@@ -57,7 +57,7 @@ jobs:
           {% raw %}CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}{% endraw %}
 {%- endif %}
 
-{%- if cookiecutter.mkdocs == "y" %}
+{%- if cookiecutter.docs_tool in ["mkdocs", "zensical"] %}
 
   check-docs:
     runs-on: ubuntu-latest
@@ -69,5 +69,5 @@ jobs:
         uses: ./.github/actions/setup-python-env
 
       - name: Check if documentation can be built
-        run: uv run mkdocs build -s
+        run: uv run {{ cookiecutter.docs_tool }} build -s
 {%- endif %}

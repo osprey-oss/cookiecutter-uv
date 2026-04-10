@@ -21,9 +21,10 @@
     "y",
     "n"
   ],
-  "mkdocs": [
-    "y",
-    "n"
+  "docs_tool": [
+    "mkdocs",
+    "zensical",
+    "none"
   ],
   "codecov": [
     "y",
