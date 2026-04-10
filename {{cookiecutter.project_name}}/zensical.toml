@@ -79,6 +79,8 @@ link = "https://github.com/{{cookiecutter.author_github_handle}}/{{cookiecutter.
 icon = "fontawesome/brands/python"
 link = "https://pypi.org/project/{{cookiecutter.project_name}}"
 
+[project.markdown_extensions.pymdownx.superfences]
+
 [project.markdown_extensions.pymdownx.arithmatex]
 generic = true
 

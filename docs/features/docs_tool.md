@@ -4,12 +4,12 @@ If `docs_tool` is set to `"mkdocs"` or `"zensical"`, documentation of your proje
 automatically added using
 [MkDocs](https://www.mkdocs.org/) or [Zensical](https://zensical.org). Next to that, if
 `"include_github_actions"` is set to `"y"`, the documentation is
-automatically deployed github action artifacts, and made available at
+automatically deployed as GitHub Action artifacts, and made available at
 `https://<github_handle>.github.io/<project_name>/`.
 
 To view the documentation locally, simply run
 
-```bash
+```sh
 make docs
 ```
 
@@ -26,14 +26,16 @@ Documentation is automatically built and deployed whenever you create a
 To enable the modern deployment pipeline, you must configure your repository to
 use GitHub Actions for hosting:
 
-1. Navigate to Settings > Code and automation > Pages in your GitHub repository.
-2. Under Build and deployment > Source, change the dropdown selection from "Deploy
-from a branch" to GitHub Actions.
+1. Navigate to `Settings > Code and automation > Pages` in your GitHub repository.
+2. Under `Build and deployment > Source`, change the dropdown selection to `GitHub Actions`.
+3. Navigate to `Settings > Code and automation > Environments`, and select the `github-pages` environment. Click `Add deployment branch or tag rule`,
+    set `Ref type` to `Tag` and under name pattern, set `*`, then click 'Add rule'.
+
 
 ### Viewing your site
 
 Once a release workflow has finished, your site will be live at:
-https://<author_github_handle>.github.io/<project_name>/
+`https://<author_github_handle>.github.io/<project_name>`
 
 ## Documenting docstrings
 
@@ -55,6 +57,7 @@ Args:
 
 Returns:
     The return value. True for success, False otherwise.
+"""
 ```
 
 For more examples, see
