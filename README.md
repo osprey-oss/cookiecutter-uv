@@ -26,7 +26,7 @@ This is a modern Cookiecutter template that can be used to initiate a Python pro
 ---
 
 <p align="center">
-  <a href="https://fpgmaas.github.io/cookiecutter-uv/">Documentation</a> - <a href="https://github.com/osprey-oss/cookiecutter-uv-example">Example</a>
+  <a href="https://osprey-oss.github.io/cookiecutter-uv/">Documentation</a> - <a href="https://github.com/osprey-oss/cookiecutter-uv-example">Example</a>
 </p>
 
 ---
