@@ -36,14 +36,14 @@ Homepage = "https://fpgmaas.github.io/cookiecutter-uv/"
 
 [dependency-groups]
 dev = [
-    "pytest>=9.0.2",
-    "pre-commit>=4.5.1",
+    "pytest>=9.0.3",
+    "pre-commit>=4.6.0",
     "pytest-cookies>=0.7.0",
-    "tox-uv>=1.33.4",
+    "tox-uv>=1.35.1",
     "deptry>=0.25.1",
-    "mypy>=1.19.1",
-    "pytest-cov>=7.0.0",
-    "ruff>=0.15.7",
+    "mypy>=1.20.2",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.15.12",
     "mkdocstrings-python>=1.0.3",
     "zensical>=0.0.26",
     "tomli>=2.4.1",

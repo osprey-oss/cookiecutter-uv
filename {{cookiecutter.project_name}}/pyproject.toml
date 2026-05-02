@@ -25,22 +25,22 @@ Documentation = "https://{{cookiecutter.author_github_handle}}.github.io/{{cooki
 
 [dependency-groups]
 dev = [
-    "pytest>=9.0.2",
-    "pre-commit>=4.5.1",
-    "tox-uv>=1.33.4",
+    "pytest>=9.0.3",
+    "pre-commit>=4.6.0",
+    "tox-uv>=1.35.1",
     {% if cookiecutter.deptry == 'y' %}"deptry>=0.25.1",{% endif %}
     {% if cookiecutter.type_checker == "mypy" -%}
-        "mypy>=1.19.1",
+        "mypy>=1.20.2",
     {%- elif cookiecutter.type_checker == "ty" -%}
-        "ty>=0.0.24",
+        "ty>=0.0.34",
     {%- endif %}
-    {% if cookiecutter.codecov == 'y' %}"pytest-cov>=7.0.0",{% endif %}
-    "ruff>=0.15.7",
+    {% if cookiecutter.codecov == 'y' %}"pytest-cov>=7.1.0",{% endif %}
+    "ruff>=0.15.12",
     {%- if cookiecutter.docs_tool in ['mkdocs', 'zensical'] %}
     {%- if cookiecutter.docs_tool == 'mkdocs' %}
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.7.6",
-    "mkdocstrings[python]>=1.0.3",
+    "mkdocstrings[python]>=1.0.4",
     {%- endif %}
     {%- if cookiecutter.docs_tool == 'zensical' %}
     "zensical>=0.0.26",
