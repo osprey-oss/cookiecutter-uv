@@ -3,6 +3,10 @@
 # Install uv
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
+# Make uv available in the current shell session
+# (the installer adds it to ~/.local/bin, which is not yet on PATH here)
+source "$HOME/.local/bin/env"
+
 # Install Dependencies
 uv sync
 
