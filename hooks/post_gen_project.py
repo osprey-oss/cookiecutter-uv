@@ -3,8 +3,31 @@ from __future__ import annotations
 
 import os
 import shutil
+import subprocess
 
 PROJECT_DIRECTORY = os.path.realpath(os.path.curdir)
+
+
+def git_init() -> None:
+    """Initialize a git repository in the generated project.
+
+    Mirrors the behaviour of ``uv init``. Failures (git not installed, or the
+    directory already being inside a repository) are non-fatal so that project
+    generation always succeeds.
+    """
+    if os.path.isdir(os.path.join(PROJECT_DIRECTORY, ".git")):
+        return
+    try:
+        subprocess.run(
+            ["git", "init"],
+            cwd=PROJECT_DIRECTORY,
+            check=True,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        # git is unavailable or failed; skip silently rather than failing generation.
+        pass
 
 
 def remove_file(filepath: str) -> None:
@@ -96,3 +119,5 @@ if __name__ == "__main__":
         if os.path.isdir("src"):
             remove_dir("src")
         move_dir("{{cookiecutter.project_slug}}", os.path.join("src", "{{cookiecutter.project_slug}}"))
+
+    git_init()
