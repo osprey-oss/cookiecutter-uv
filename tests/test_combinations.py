@@ -111,6 +111,14 @@ class TestStructure:
             assert project.has_dir("example_project")
             assert not project.has_dir("src")
 
+    def test_version_in_init(self, bake, options):
+        effective = resolve_options(options)
+        project = bake(**options)
+        package_dir = "src/example_project" if effective["layout"] == "src" else "example_project"
+        init = project.read_file(f"{package_dir}/__init__.py")
+        assert "__version__" in init
+        assert 'version("example-project")' in init
+
     def test_release_workflow(self, bake, options):
         effective = resolve_options(options)
         project = bake(**options)
