@@ -111,6 +111,15 @@ class TestStructure:
             assert project.has_dir("example_project")
             assert not project.has_dir("src")
 
+    def test_dependabot(self, bake, options):
+        effective = resolve_options(options)
+        project = bake(**options)
+        if effective["include_github_actions"] == "y":
+            assert project.has_file(".github/dependabot.yml")
+            assert project.is_valid_yaml(".github/dependabot.yml")
+        else:
+            assert not project.has_file(".github/dependabot.yml")
+
     def test_release_workflow(self, bake, options):
         effective = resolve_options(options)
         project = bake(**options)
