@@ -111,6 +111,10 @@ class TestStructure:
             assert project.has_dir("example_project")
             assert not project.has_dir("src")
 
+    def test_git_initialized(self, bake, options):
+        project = bake(**options)
+        assert project.has_dir(".git"), "Expected the generated project to be a git repository"
+
     def test_release_workflow(self, bake, options):
         effective = resolve_options(options)
         project = bake(**options)
