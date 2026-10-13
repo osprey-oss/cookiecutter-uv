@@ -10,8 +10,19 @@ check: ## Run code quality tools.
 	@uv lock --locked
 	@echo "🚀 Linting code: Running pre-commit"
 	@uv run pre-commit run -a
-	@echo "🚀 Static type checking: Running {{ cookiecutter.type_checker }}"
-	@uv run {% if cookiecutter.type_checker == "mypy" %}mypy{% else %}ty check{% endif %}
+{%- if cookiecutter.type_checker == "mypy" %}
+{%- if cookiecutter.mypy_check_linux_and_windows == "y" %}
+	@echo "🚀 Static type checking: Running mypy multi-platform for Linux and Windows"
+	@uv run mypy --platform linux
+	@uv run mypy --platform win32
+{%- else %}
+	@echo "🚀 Static type checking: Running mypy"
+	@uv run mypy
+{%- endif %}
+{%- else %}
+	@echo "🚀 Static type checking: Running ty"
+	@uv run ty check
+{%- endif %}
 {%- if cookiecutter.deptry == 'y' %}
 	@echo "🚀 Checking for obsolete dependencies: Running deptry"
 	@uv run deptry {% if cookiecutter.layout == "src" %}src{% else %}.{% endif %}
