@@ -42,6 +42,10 @@
     "mypy",
     "ty"
   ],
+  "mypy_check_linux_and_windows": [
+    "n",
+    "y"
+  ],
   "open_source_license": [
     "MIT license",
     "BSD license",

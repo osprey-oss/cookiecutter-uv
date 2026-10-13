@@ -85,6 +85,17 @@ exclude = [
 ]
 ```
 
+### Checking Linux and Windows
+
+Answer `y` to `mypy_check_linux_and_windows` when generating the project and `make check` will run mypy twice, once per platform:
+
+```bash
+uv run mypy --platform linux
+uv run mypy --platform win32
+```
+
+This catches code that only type-checks on one operating system, for example branches guarded by `sys.platform == "win32"`. The default is `n`, which runs a single `uv run mypy`. The option has no effect if you choose `ty`.
+
 ## ty
 
 [ty](https://docs.astral.sh/ty/) is an extremely fast type checker (and language server) that can be used instead of mypy, and it's configuration can be edited in `pyproject.toml`.

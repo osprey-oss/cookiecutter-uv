@@ -19,6 +19,7 @@ COMBINATIONS = [
     pytest.param({**MINIMAL, "layout": "src"}, id="src-layout-minimal"),
     pytest.param({"publish_to_pypi": "n", "mkdocs": "n"}, id="no-publish-no-mkdocs"),
     pytest.param({"include_github_actions": "n"}, id="no-github-actions"),
+    pytest.param({"type_checker": "mypy", "mypy_check_linux_and_windows": "y"}, id="mypy-type-checker-multi-y"),
     pytest.param({"type_checker": "ty"}, id="ty-type-checker"),
     pytest.param({"mkdocs": "y", "codecov": "n"}, id="mkdocs-no-codecov"),
     pytest.param({"codecov": "n", "include_github_actions": "n"}, id="no-codecov-no-actions"),
@@ -36,6 +37,7 @@ DEFAULTS = {
     "dockerfile": "y",
     "devcontainer": "y",
     "type_checker": "mypy",
+    "mypy_check_linux_and_windows": "n",
 }
 
 
@@ -139,6 +141,25 @@ class TestStructure:
         else:
             assert '"ty' in content
             assert '"mypy' not in content
+
+    def test_makefile_type_checker(self, bake, options):
+        effective = resolve_options(options)
+        project = bake(**options)
+        lines = [line.strip() for line in project.read_file("Makefile").splitlines()]
+        content = "\n".join(lines)
+
+        if effective["type_checker"] == "mypy":
+            assert "ty check" not in content
+            if effective["mypy_check_linux_and_windows"] == "y":
+                assert "@uv run mypy --platform linux" in lines
+                assert "@uv run mypy --platform win32" in lines
+                assert "@uv run mypy" not in lines
+            else:
+                assert "@uv run mypy" in lines
+                assert "--platform" not in content
+        else:
+            assert "@uv run ty check" in lines
+            assert "mypy" not in content
 
     def test_makefile_targets(self, bake, options):
         effective = resolve_options(options)
